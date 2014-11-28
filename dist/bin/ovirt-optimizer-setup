@@ -3,7 +3,7 @@
 # this script dependent on net-tools package
 
 Get_IP(){
-   IPADDR=`ifconfig em1 | grep inet | head -1 | awk '{print $2}'`
+   IPADDR=`ifconfig eth0 | grep inet | head -1 | awk '{print $2}'`
 }
 
 Get_Password(){
