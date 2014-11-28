@@ -1,0 +1,22 @@
+#!/bin/bash
+# ovirt optimizer configuration script
+# this script dependent on net-tools package
+
+Get_IP(){
+   IPADDR=`ifconfig em1 | grep inet | head -1 | awk '{print $2}'`
+}
+
+Get_Password(){
+       read -sp "Please enter the password for the engine user admin@internal: " ADMINPASSWD
+}
+
+Setup(){
+   Get_IP
+   Get_Password
+   sed -i "s/org.ovirt.optimizer.sdk.server=.*/org.ovirt.optimizer.sdk.server=$IPADDR/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
+   sed -i "s/org.ovirt.optimizer.sdk.username=.*/org.ovirt.optimizer.sdk.username=admin@internal/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
+   sed -i "s/org.ovirt.optimizer.sdk.password=.*/org.ovirt.optimizer.sdk.password=$ADMINPASSWD/g"
+   echo "Setup proccess completed."
+}
+
+Setup
