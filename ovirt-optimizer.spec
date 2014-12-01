@@ -46,9 +46,6 @@ BuildArch:	noarch
 
 BuildRequires:	java-devel
 BuildRequires:	jpackage-utils
-BuildRequires:	maven-local
-BuildRequires:  maven-war-plugin
-BuildRequires:  maven-jar-plugin
 BuildRequires:	unzip
 BuildRequires:  symlinks
 
@@ -154,7 +151,7 @@ for the project to work. The goal is to drop this subpackage once the dependenci
 %setup -c -q
 
 %build
-mvn --offline %{?with_extra_maven_opts} clean install
+mvn %{?with_extra_maven_opts} clean install
 
 %install
 ##
