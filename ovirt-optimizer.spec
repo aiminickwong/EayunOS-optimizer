@@ -348,7 +348,9 @@ install dist/etc/*.properties %{buildroot}/etc/%{name}
 
 # Install the setup script
 install -dm 755 %{buildroot}/usr/sbin/
+install -dm 755 %{buildroot}/var/log/ovirt-optimizer/
 install dist/bin/ovirt-optimizer-setup %{buildroot}/usr/sbin/ 
+install dist/etc/ovirt-optimizer %{buildroot}/etc/rc.d/init.d/
 
 %files
 %defattr(644, root, root, 755)
@@ -388,7 +390,9 @@ install dist/bin/ovirt-optimizer-setup %{buildroot}/usr/sbin/
 %files setup
 %defattr(644, root, root, 755)
 %dir /usr/sbin/
+%dir /var/log/ovirt-optimizer/
 %attr (0755,root,root)/usr/sbin/ovirt-optimizer-setup
+%attr (0755,root,root)/etc/rc.d/init.d/ovirt-optimizer
 
 %changelog
 * Mon Dec  1 2014 MaZhe <mazhe2014@gmail.com> 0.6-1.1
