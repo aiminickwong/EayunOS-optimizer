@@ -10,6 +10,22 @@ Get_Password(){
        read -sp "Please enter the password for the engine user admin@internal: " ADMINPASSWD
 }
 
+Configuration_System_Service(){
+   echo ""
+   echo "Adding service to auto start"
+   chkconfig --add ovirt-optimizer
+   echo "Restarting httpd"
+   /etc/init.d/httpd restart
+   Check_Logfile
+   echo "Staring service..."
+   /etc/rc.d/init.d/ovirt-optimizer start
+}
+
+Check_Logfile(){
+   [ -d /var/log/ovirt-optimizer/ ] || mkdir -p /var/log/ovirt-optimizer/
+   [ -f /var/log/ovirt-optimizer/ovirt-optimizer.log ] || touch /var/log/ovirt-optimizer/ovirt-optimizer.log
+}
+
 Setup(){
    Get_IP
    Get_Password
@@ -17,6 +33,7 @@ Setup(){
    sed -i "s/org.ovirt.optimizer.sdk.username=.*/org.ovirt.optimizer.sdk.username=admin@internal/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
    sed -i "s/org.ovirt.optimizer.sdk.password=.*/org.ovirt.optimizer.sdk.password=$ADMINPASSWD/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
    echo
+   Configuration_System_Service
    echo "Setup proccess completed."
 }
 
