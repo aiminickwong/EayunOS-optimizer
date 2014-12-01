@@ -3,7 +3,7 @@
 # this script dependent on net-tools package
 
 Get_IP(){
-   IPADDR=`ifconfig eth0 | grep inet | head -1 | awk '{print $2}'`
+   IPADDR=`ifconfig eth0 | grep inet | head -1 | awk '{print $2}' | cut -d ":" -f 2`
 }
 
 Get_Password(){
@@ -15,7 +15,8 @@ Setup(){
    Get_Password
    sed -i "s/org.ovirt.optimizer.sdk.server=.*/org.ovirt.optimizer.sdk.server=$IPADDR/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
    sed -i "s/org.ovirt.optimizer.sdk.username=.*/org.ovirt.optimizer.sdk.username=admin@internal/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
-   sed -i "s/org.ovirt.optimizer.sdk.password=.*/org.ovirt.optimizer.sdk.password=$ADMINPASSWD/g"
+   sed -i "s/org.ovirt.optimizer.sdk.password=.*/org.ovirt.optimizer.sdk.password=$ADMINPASSWD/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
+   echo
    echo "Setup proccess completed."
 }
 
