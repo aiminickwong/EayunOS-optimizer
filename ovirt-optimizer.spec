@@ -334,8 +334,9 @@ install -dm 755 %{buildroot}%{_docdir}/%{name}-%{version}
 install -dm 755 %{buildroot}%{engine_data}/ui-plugins
 install -dm 755 %{buildroot}%{engine_etc}/ui-plugins
 install -dm 755 %{buildroot}%{engine_data}/ui-plugins/ovirt-optimizer-resources
+install -dm 755 %{buildroot}%{engine_data}/ui-plugins/ovirt-optimizer-resources/js
 install dist/ovirt-optimizer-uiplugin/*.json %{buildroot}%{engine_data}/ui-plugins/
-install dist/ovirt-optimizer-uiplugin/ovirt-optimizer-resources/* %{buildroot}%{engine_data}/ui-plugins/ovirt-optimizer-resources
+cp -r dist/ovirt-optimizer-uiplugin/ovirt-optimizer-resources/* %{buildroot}%{engine_data}/ui-plugins/ovirt-optimizer-resources
 install dist/etc/*.json %{buildroot}%{engine_etc}/ui-plugins/
 
 # Install config file
@@ -378,9 +379,11 @@ install dist/etc/ovirt-optimizer %{buildroot}/etc/rc.d/init.d/
 %files ui
 %defattr(644, root, root, 755)
 %dir %{engine_data}/ui-plugins/ovirt-optimizer-resources
+%dir %{engine_data}/ui-plugins/ovirt-optimizer-resources/js
 %config %{engine_etc}/ui-plugins/ovirt-optimizer-config.json
 %{engine_data}/ui-plugins/ovirt-optimizer.json
 %{engine_data}/ui-plugins/ovirt-optimizer-resources/*
+%{engine_data}/ui-plugins/ovirt-optimizer-resources/js/*
 
 %files dependencies
 %defattr(644, root, root, 755)
