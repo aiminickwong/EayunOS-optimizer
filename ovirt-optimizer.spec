@@ -350,6 +350,7 @@ install dist/etc/*.properties %{buildroot}/etc/%{name}
 # Install the setup script
 install -dm 755 %{buildroot}/usr/sbin/
 install -dm 755 %{buildroot}/var/log/ovirt-optimizer/
+install -dm 755 %{buildroot}/etc/rc.d/init.d/
 install dist/bin/ovirt-optimizer-setup %{buildroot}/usr/sbin/ 
 install dist/etc/ovirt-optimizer %{buildroot}/etc/rc.d/init.d/
 
