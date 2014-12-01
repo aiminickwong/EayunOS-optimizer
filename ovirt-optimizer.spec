@@ -80,6 +80,13 @@ This subpackage adds an UI plugin to the oVirt webadmin portal.
 This plugin then adds a Tab to the cluster display and presents
 the assingment recommendations to the sysadmin there.
 
+%package setup
+Summary:	Setup script for deployment
+Requires:	ovirt-optimizer-ui
+
+%description setup
+This subpackage provide a setup script to deployment the ovirt-optimizer
+
 %if 0%{?with_jboss}
 %package jboss7
 Summary:       Integration of the optimization service to Jboss 7.
@@ -335,6 +342,14 @@ install dist/etc/*.json %{buildroot}%{engine_etc}/ui-plugins/
 install -dm 755 %{buildroot}/etc/%{name}
 install dist/etc/*.properties %{buildroot}/etc/%{name}
 
+##
+## Setup Script
+##
+
+# Install the setup script
+install -dm 755 %{buildroot}/usr/sbin/
+install dist/bin/ovirt-optimizer-setup %{buildroot}/usr/sbin/ 
+
 %files
 %defattr(644, root, root, 755)
 %doc README COPYING
@@ -370,7 +385,15 @@ install dist/etc/*.properties %{buildroot}/etc/%{name}
 %dir %{_javadir}/%{name}/bundled
 %{_javadir}/%{name}/bundled/*
 
+%files setup
+%defattr(644, root, root, 755)
+%dir /usr/sbin/
+%attr (0755,root,root)/usr/sbin/ovirt-optimizer-setup
+
 %changelog
+* Mon Dec  1 2014 MaZhe <mazhe2014@gmail.com> 0.6-1.1
+- Add setup script
+
 * Mon Nov 10 2014 Martin Sivak <msivak@redhat.com> 0.6-1
 - Fix uuid matching rules for even distribution policies
   Resolves: rhbz#1156141
