@@ -6,8 +6,12 @@ Get_IP(){
    IPADDR=`ifconfig eth0 | grep inet | head -1 | awk '{print $2}' | cut -d ":" -f 2`
 }
 
+Get_Hostname(){
+   HOSTNAME=`hostname`
+}
+
 Get_Password(){
-       read -sp "Please enter the password for the engine user admin@internal: " ADMINPASSWD
+   read -sp "Please enter the password for the engine user admin@internal: " ADMINPASSWD
 }
 
 Configuration_System_Service(){
@@ -16,14 +20,8 @@ Configuration_System_Service(){
    chkconfig --add ovirt-optimizer
    echo "Restarting httpd"
    /etc/init.d/httpd restart
-   Check_Logfile
    echo "Staring service..."
    /etc/rc.d/init.d/ovirt-optimizer start
-}
-
-Check_Logfile(){
-   [ -d /var/log/ovirt-optimizer/ ] || mkdir -p /var/log/ovirt-optimizer/
-   [ -f /var/log/ovirt-optimizer/ovirt-optimizer.log ] || touch /var/log/ovirt-optimizer/ovirt-optimizer.log
 }
 
 Setup(){
@@ -32,6 +30,7 @@ Setup(){
    sed -i "s/org.ovirt.optimizer.sdk.server=.*/org.ovirt.optimizer.sdk.server=$IPADDR/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
    sed -i "s/org.ovirt.optimizer.sdk.username=.*/org.ovirt.optimizer.sdk.username=admin@internal/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
    sed -i "s/org.ovirt.optimizer.sdk.password=.*/org.ovirt.optimizer.sdk.password=$ADMINPASSWD/g" /etc/ovirt-optimizer/ovirt-optimizer.properties
+   sed -i "s/\"baseurl\":.*\//\"baseurl\": \"https:\/\/$HOSTNAME\/ovirt-optimizer\/result\//g" /etc/ovirt-engine/ui-plugins/ovirt-optimizer-config.json
    echo
    Configuration_System_Service
    echo "Setup proccess completed."
