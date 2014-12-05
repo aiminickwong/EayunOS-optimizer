@@ -22,6 +22,7 @@ Configuration_System_Service(){
    /etc/init.d/httpd restart
    echo "Staring service..."
    /etc/rc.d/init.d/ovirt-optimizer start
+   chkconfig ovirt-optimizer on
 }
 
 Setup(){
