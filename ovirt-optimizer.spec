@@ -349,9 +349,11 @@ install -dm 755 %{buildroot}/usr/sbin/
 install -dm 755 %{buildroot}/var/log/ovirt-optimizer/
 install -dm 755 %{buildroot}/etc/rc.d/init.d/
 install -dm 755 %{buildroot}/etc/httpd/conf.d/
+install -dm 755 %{buildroot}/etc/ovirt-optimizer/
 install dist/bin/ovirt-optimizer-setup %{buildroot}/usr/sbin/ 
 install dist/etc/ovirt-optimizer %{buildroot}/etc/rc.d/init.d/
 install dist/etc/z-ovirt-optimizer.conf %{buildroot}/etc/httpd/conf.d/
+install dist/etc/ovirt-optimizer.xml %{buildroot}/etc/ovirt-optimizer/
 
 %files
 %defattr(644, root, root, 755)
@@ -394,6 +396,7 @@ install dist/etc/z-ovirt-optimizer.conf %{buildroot}/etc/httpd/conf.d/
 %defattr(644, root, root, 755)
 %dir /usr/sbin/
 %dir /var/log/ovirt-optimizer/
+%dir /etc/ovirt-optimizer/
 %attr (0755,root,root)/usr/sbin/ovirt-optimizer-setup
 %attr (0755,root,root)/etc/rc.d/init.d/ovirt-optimizer
 %attr (0644,root,root)/etc/httpd/conf.d/z-ovirt-optimizer.conf
