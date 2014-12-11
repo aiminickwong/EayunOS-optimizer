@@ -2,6 +2,18 @@
 # ovirt optimizer configuration script
 # this script dependent on net-tools package
 
+while [ -n "$1" ]; do
+        x="$1"
+        v="${x#*=}"
+        shift
+        case "${x}" in
+                --password=*)
+                        PASSWORD="${v}"
+                ;;
+        esac
+done
+
+
 Get_IP(){
    IPADDR=`ifconfig eth0 | grep inet | head -1 | awk '{print $2}' | cut -d ":" -f 2`
 }
@@ -11,7 +23,11 @@ Get_Hostname(){
 }
 
 Get_Password(){
-   read -sp "Please enter the password for the engine user admin@internal: " ADMINPASSWD
+   if ! [ -z $PASSWORD ]; then
+      ADMINPASSWD=$PASSWORD
+   else
+      read -sp "Please enter the password for the engine user admin@internal: " ADMINPASSWD
+   fi
 }
 
 Configuration_System_Service(){
