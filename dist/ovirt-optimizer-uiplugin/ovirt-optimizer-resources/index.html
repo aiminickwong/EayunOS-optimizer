@@ -5,12 +5,14 @@
 <script src="js/jquery-1.11.1.min.js" language="javascript"></script>
 <script type='text/javascript'>
     var api = parent.pluginApi('oVirtOptimizer');
+    api.options({allowedMessageOrigins: ["*"]});
     var cfg = api.configObject();
 
     function vmAction(action, paramsVms) {
         return $.ajax({method: 'GET',
             url: "/ovirt-engine/api/vms",
             headers: {"Accept": "application/json"},
+            headers: {"Prefer": "persistent-auth"},
             success: function (data) {
                 // Create VM to Cluster cache
                 var mapping = {};

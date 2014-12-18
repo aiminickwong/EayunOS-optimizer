@@ -242,7 +242,8 @@
                 method: 'POST',
                 url: "/ovirt-engine/api/vms/" + vm + "/migrate",
                 headers: {"Content-Type": "application/json",
-                          "Accept": "application/json"},
+                          "Accept": "application/json",
+                          "Prefer": "persistent-auth"},
                 data: {host: {id: host},
                        async: true}
             }).success(function (data) {
@@ -261,7 +262,8 @@
                 method: 'POST',
                 url: "/ovirt-engine/api/vms/" + vm + "/start",
                 headers: {"Content-Type": "application/json",
-                          "Accept": "application/json"},
+                          "Accept": "application/json",
+                          "Prefer": "persistent-auth"},
                 data: {
                     vm: {
                         placement_policy: {
@@ -285,7 +287,8 @@
                 method: 'POST',
                 url: cfg["baseurl"]+clusterid+"/cancel",
                 headers: {"Content-Type": "application/json",
-                          "Accept": "application/json"},
+                          "Accept": "application/json",
+                          "Prefer": "persistent-auth"},
                 data: {id: vm}
             }).success(function (data) {
                 $scope.valid = "Waiting for updated solution.";
@@ -422,7 +425,9 @@
             console.log("/ovirt-engine/api/hosts");
             return $http({method: 'GET',
                 url: "/ovirt-engine/api/hosts",
-                headers: {"Accept": "application/json"}});
+                headers: {"Accept": "application/json",
+                          "Prefer": "persistent-auth"}
+            });
         };
         return factory;
     });
@@ -432,7 +437,9 @@
         factory.getResult = function() {
             return $http({method: 'GET',
                 url: "/ovirt-engine/api/vms",
-                headers: {"Accept": "application/json"}});
+                headers: {"Accept": "application/json",
+                          "Prefer": "persistent-auth"}
+            });
         };
         return factory;
     });
