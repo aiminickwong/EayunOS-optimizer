@@ -357,16 +357,20 @@
         };
 
         $scope.recomputeResources = function() {
-            $scope.result.hosts.forEach(function (host) {
-                console.log("Resetting host "+host);
-                $scope.hosts[host].willusememory = 0;
-            });
+            if ($scope.result.hosts) {
+                $scope.result.hosts.forEach(function (host) {
+                    console.log("Resetting host "+host);
+                    $scope.hosts[host].willusememory = 0;
+                });
+            }
 
-            $scope.result.vms.forEach(function (vm) {
-                console.log("Adding mem of vm "+vm+" to host "+$scope.result.vmToHost[vm]);
-                if ($scope.result.vmToHost[vm] == null) return;
-                $scope.hosts[$scope.result.vmToHost[vm]].willusememory += $scope.vms[vm].memory;
-            });
+            if ($scope.result.vms) {
+                $scope.result.vms.forEach(function (vm) {
+                    console.log("Adding mem of vm "+vm+" to host "+$scope.result.vmToHost[vm]);
+                    if ($scope.result.vmToHost[vm] == null) return;
+                    $scope.hosts[$scope.result.vmToHost[vm]].willusememory += $scope.vms[vm].memory;
+                });
+            }
         };
 
         $scope.verifyData = function() {
