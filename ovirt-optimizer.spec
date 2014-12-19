@@ -354,6 +354,8 @@ install dist/bin/ovirt-optimizer-setup %{buildroot}/usr/sbin/
 install dist/etc/ovirt-optimizer %{buildroot}/etc/rc.d/init.d/
 install dist/etc/z-ovirt-optimizer.conf %{buildroot}/etc/httpd/conf.d/
 install dist/etc/ovirt-optimizer.xml %{buildroot}/etc/ovirt-optimizer/
+touch %{buildroot}/etc/ovirt-optimizer/mgmt-users.properties
+touch %{buildroot}/etc/ovirt-optimizer/application-users.properties
 
 %files
 %defattr(644, root, root, 755)
