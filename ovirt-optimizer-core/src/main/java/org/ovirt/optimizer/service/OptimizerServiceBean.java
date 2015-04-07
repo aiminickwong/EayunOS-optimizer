@@ -151,6 +151,13 @@ public class OptimizerServiceBean implements OptimizerServiceRemote {
                 Thread.currentThread().interrupt();
             }
         }
+
+        log.error("closing api object");
+        try {
+            client.connect().close();
+        } catch (Exception e) {
+            log.error("error closing api object");
+        }
         log.info("oVirt service service stopped");
     }
 
