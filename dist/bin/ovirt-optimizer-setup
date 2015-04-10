@@ -39,6 +39,8 @@ Configuration_System_Service(){
    echo "Staring service..."
    /etc/rc.d/init.d/ovirt-optimizer start
    chkconfig ovirt-optimizer on
+   /etc/rc.d/init.d/ovirt-optimizer-watchdog start
+   chkconfig ovirt-optimizer-watchdog on
 }
 
 Setup(){
