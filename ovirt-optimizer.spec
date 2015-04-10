@@ -352,8 +352,10 @@ install -dm 755 %{buildroot}/etc/httpd/conf.d/
 install -dm 755 %{buildroot}/etc/ovirt-optimizer/
 install dist/bin/ovirt-optimizer-setup %{buildroot}/usr/sbin/ 
 install dist/etc/ovirt-optimizer %{buildroot}/etc/rc.d/init.d/
+install dist/etc/ovirt-optimizer-watchdog %{buildroot}/etc/rc.d/init.d/
 install dist/etc/z-ovirt-optimizer.conf %{buildroot}/etc/httpd/conf.d/
 install dist/etc/ovirt-optimizer.xml %{buildroot}/etc/ovirt-optimizer/
+install dist/etc/watchdog.sh %{buildroot}/etc/ovirt-optimizer/
 touch %{buildroot}/etc/ovirt-optimizer/mgmt-users.properties
 touch %{buildroot}/etc/ovirt-optimizer/application-users.properties
 
@@ -400,7 +402,9 @@ touch %{buildroot}/etc/ovirt-optimizer/application-users.properties
 %dir /var/log/ovirt-optimizer/
 %dir /etc/ovirt-optimizer/
 %attr (0755,root,root)/usr/sbin/ovirt-optimizer-setup
+%attr (0755,root,root)/etc/ovirt-optimizer/watchdog.sh
 %attr (0755,root,root)/etc/rc.d/init.d/ovirt-optimizer
+%attr (0755,root,root)/etc/rc.d/init.d/ovirt-optimizer-watchdog
 %attr (0644,root,root)/etc/httpd/conf.d/z-ovirt-optimizer.conf
 
 %changelog

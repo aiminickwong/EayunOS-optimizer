@@ -14,8 +14,8 @@
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-NAME="ovirt-optimizer"
-PROG="ovirt optimizer service"
+NAME="ovirt-optimizer-watchdog"
+PROG="ovirt optimizer watchdog service"
 
 RETVAL=0
 LOCKFILE="/var/lock/subsys/${NAME}"
@@ -33,7 +33,7 @@ case "$1" in
         touch "${PIDFILE}"
         status -p "${PIDFILE}" "${NAME}" | grep -q "is running\|正在运行"
         if [ $? -ne 0 ]; then
-            taskset 0x11111111 java -server -XX:+TieredCompilation -Xms1g -Xmx1g -XX:PermSize=128m -XX:MaxPermSize=128m -XX:OnOutOfMemoryError="service ovirt-optimizer stop" -Djava.net.preferIPv4Stack=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djava.awt.headless=true -Djava.util.logging.manager=org.jboss.logmanager -Dorg.jboss.resolver.warning=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djboss.modules.write-indexes=false -Djboss.server.default.config=ovirt-optimizer -Djboss.home.dir=/usr/share/ovirt-engine-jboss-as -Djboss.server.config.dir=/etc/ovirt-optimizer -jar /usr/share/ovirt-engine-jboss-as/jboss-modules.jar -mp /usr/share/ovirt-engine-jboss-as/modules -jaxpmodule javax.xml.jaxp-provider org.jboss.as.standalone -c ovirt-optimizer.xml &>> /var/log/ovirt-optimizer/ovirt-optimizer.log &
+            /etc/ovirt-optimizer/watchdog.sh >> /var/log/ovirt-optimizer/ovirt-optimizer-watchdog.log &
             RETVAL=$!
             echo $! > ${PIDFILE}
             [ $RETVAL -ne 0 -a ! -s "${PIDFILE}" ] && rm -f "${PIDFILE}"
