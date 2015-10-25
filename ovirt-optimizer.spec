@@ -398,11 +398,9 @@ touch %{buildroot}/etc/ovirt-optimizer/application-users.properties
 
 %files setup
 %defattr(644, root, root, 755)
-%dir /usr/sbin/
 %dir /var/log/ovirt-optimizer/
 %dir /etc/ovirt-optimizer/
 %attr (0755,root,root)/usr/sbin/ovirt-optimizer-setup
-%attr (0755,root,root)/etc/ovirt-optimizer/watchdog.sh
 %attr (0755,root,root)/etc/rc.d/init.d/ovirt-optimizer
 %attr (0755,root,root)/etc/rc.d/init.d/ovirt-optimizer-watchdog
 %attr (0644,root,root)/etc/httpd/conf.d/z-ovirt-optimizer.conf
