@@ -423,7 +423,7 @@ touch %{buildroot}/etc/ovirt-optimizer/application-users.properties
   only when used on stopped VM.
   Resolves: rhbz#1140723
 
-* Mon Sep 11 2014 Martin Sivak <msivak@redhat.com> 0.4-1
+* Thu Sep 11 2014 Martin Sivak <msivak@redhat.com> 0.4-1
 - Fixed file permissions
 - Fixed REST endpoint urls in UI plugin
   Related: rhbz#1140721
